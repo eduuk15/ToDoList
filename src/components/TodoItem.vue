@@ -31,7 +31,10 @@
                                 v-model="title"
                                 type="text"
                                 placeholder="Digite a sua tarefa"
-                                class="bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3"
+                                :class="{
+                                    'line-through bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3': isCompleted,
+                                    'bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3': !isCompleted,
+                                }"
                                 @keyup.enter="onTitleChange"
                             >
                         </div>
