@@ -14,26 +14,18 @@
                     type="submit"
                 >
                     ADICIONAR
-                    {{alert}}
                 </button>
     </form>
 </template>
 
 <script>
 export default {
-    props: {
-        alert: String
-    },
     data() {
         return {
-            title: '',
-            alertValue: ''
+            title: ''
         }
     },
     methods: {
-        changeAlert() {
-            this.$emit('changeAlert', this.alertValue)
-        },
         addTodo() {
             if (!this.title) {
                 return false;
@@ -43,8 +35,6 @@ export default {
                 completed: false
             }).finally(() => {
                 this.title = ''
-                this.alertValue = 'adicionou'
-                this.changeAlert()
             })
         }
     }

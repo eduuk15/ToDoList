@@ -8,10 +8,10 @@
           <TodoSpinner v-if="loading"/>
 
           <template v-else>
-            <TodoFormAdd :alert="alert" @changeAlert="changeAlert($event)"/>
-            <TodoItems v-if="$store.state.todos.length"/>
+            <TodoFormAdd />
+            <TodoItems v-if="$store.state.todos.length" />
             <TodoEmpty v-else/>
-            <TodoAlerts v-if="alert === 'adicionou'"/>
+            <TodoAlertSuccess v-if="todosLength > todosLengthOriginal"/>
           </template>
 
         </div>
@@ -24,7 +24,7 @@ import TodoSpinner from './components/TodoSpinner.vue'
 import TodoFormAdd from './components/TodoFormAdd.vue'
 import TodoItems from './components/TodoItems.vue'
 import TodoEmpty from './components/TodoEmpty.vue'
-import TodoAlerts from './components/TodoAlerts.vue'
+import TodoAlertSuccess from './components/TodoAlertSuccess.vue'
 
 export default {
   name: 'App',
@@ -33,12 +33,13 @@ export default {
     TodoFormAdd,
     TodoItems,
     TodoEmpty,
-    TodoAlerts
+    TodoAlertSuccess
   },
   data() {
     return {
       loading: false,
-      alert: ''
+      todosLengthOriginal: '',
+      todosLength: ''
     }
   },
   created() {
@@ -46,11 +47,10 @@ export default {
     this.$store.dispatch('getTodos').finally(() => {
       this.loading = false
     })
+    this.todosLengthOriginal = this.$store.state.todos.length;
   },
-  methods: {
-    changeAlert(alert) {
-      this.alert = alert
-    }
-  },
+  updated() {
+    this.todosLength = this.$store.state.todos.length;
+  }
 }
 </script>
