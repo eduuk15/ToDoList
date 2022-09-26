@@ -22,17 +22,17 @@
 <script>
 export default {
     props: {
-        alert: Boolean
+        alert: String
     },
     data() {
         return {
             title: '',
-            adicionada: ''
+            alertValue: ''
         }
     },
     methods: {
         changeAlert() {
-            this.$emit('changeAlert', this.adicionada)
+            this.$emit('changeAlert', this.alertValue)
         },
         addTodo() {
             if (!this.title) {
@@ -43,7 +43,7 @@ export default {
                 completed: false
             }).finally(() => {
                 this.title = ''
-                this.adicionada = true
+                this.alertValue = 'adicionou'
                 this.changeAlert()
             })
         }

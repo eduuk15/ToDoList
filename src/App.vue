@@ -8,10 +8,10 @@
           <TodoSpinner v-if="loading"/>
 
           <template v-else>
-            <TodoFormAdd :adicionada="adicionada" @changeAlert="changeAlert($event)"/>
+            <TodoFormAdd :alert="alert" @changeAlert="changeAlert($event)"/>
             <TodoItems v-if="$store.state.todos.length"/>
             <TodoEmpty v-else/>
-            <TodoAlerts v-if="adicionada"/>
+            <TodoAlerts v-if="alert === 'adicionou'"/>
           </template>
 
         </div>
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       loading: false,
-      adicionada: ''
+      alert: ''
     }
   },
   created() {
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     changeAlert(alert) {
-      this.adicionada = alert
+      this.alert = alert
     }
   },
 }

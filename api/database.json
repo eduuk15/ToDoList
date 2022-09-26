@@ -1,44 +1,14 @@
 {
   "todos": [
     {
-      "title": "rwqe",
+      "title": "shiu",
       "completed": false,
       "id": 1
     },
     {
-      "title": "rwqe",
+      "title": "shiu",
       "completed": false,
       "id": 2
-    },
-    {
-      "title": "RWE",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "title": "RWEQ",
-      "completed": false,
-      "id": 4
-    },
-    {
-      "title": "rwqe",
-      "completed": false,
-      "id": 5
-    },
-    {
-      "title": "rwqer",
-      "completed": false,
-      "id": 6
-    },
-    {
-      "title": "rew",
-      "completed": false,
-      "id": 7
-    },
-    {
-      "title": "rwe",
-      "completed": false,
-      "id": 8
     }
   ]
 }
