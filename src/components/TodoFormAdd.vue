@@ -14,18 +14,26 @@
                     type="submit"
                 >
                     ADICIONAR
+                    {{alert}}
                 </button>
-            </form>
+    </form>
 </template>
 
 <script>
 export default {
+    props: {
+        alert: Boolean
+    },
     data() {
         return {
-            title: ''
+            title: '',
+            adicionada: ''
         }
     },
     methods: {
+        changeAlert() {
+            this.$emit('changeAlert', this.adicionada)
+        },
         addTodo() {
             if (!this.title) {
                 return false;
@@ -35,8 +43,10 @@ export default {
                 completed: false
             }).finally(() => {
                 this.title = ''
+                this.adicionada = true
+                this.changeAlert()
             })
         }
-    },
+    }
 }
 </script>

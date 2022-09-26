@@ -1,16 +1,17 @@
 <template>
     <div class="px-3 py-10 md:px-10">
         <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
-          <div class="flex justify-center">
+          <div class="flex justify-center text-green-400 font-semibold text-title">
               To Do List (Lista de Tarefas)
           </div>
 
           <TodoSpinner v-if="loading"/>
 
           <template v-else>
-            <TodoFormAdd />
+            <TodoFormAdd :adicionada="adicionada" @changeAlert="changeAlert($event)"/>
             <TodoItems v-if="$store.state.todos.length"/>
             <TodoEmpty v-else/>
+            <TodoAlerts v-if="adicionada"/>
           </template>
 
         </div>
@@ -23,6 +24,7 @@ import TodoSpinner from './components/TodoSpinner.vue'
 import TodoFormAdd from './components/TodoFormAdd.vue'
 import TodoItems from './components/TodoItems.vue'
 import TodoEmpty from './components/TodoEmpty.vue'
+import TodoAlerts from './components/TodoAlerts.vue'
 
 export default {
   name: 'App',
@@ -30,11 +32,13 @@ export default {
     TodoSpinner,
     TodoFormAdd,
     TodoItems,
-    TodoEmpty
+    TodoEmpty,
+    TodoAlerts
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      adicionada: ''
     }
   },
   created() {
@@ -42,6 +46,11 @@ export default {
     this.$store.dispatch('getTodos').finally(() => {
       this.loading = false
     })
-  }
+  },
+  methods: {
+    changeAlert(alert) {
+      this.adicionada = alert
+    }
+  },
 }
 </script>

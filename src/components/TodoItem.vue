@@ -4,8 +4,8 @@
                         <div class="flex items-center justify-center mr-2">
                             <button
                                 :class="{
-                                    'text-green-600': isCompleted,
-                                    'text-gray-400': !isCompleted
+                                    'text-green-600 hover:text-gray-400': isCompleted,
+                                    'text-gray-400 hover:text-green-600': !isCompleted,
                                 }"
                                 @click="onCheckClick"
                             >
@@ -41,11 +41,11 @@
 
                         <div class="ml-auto flex items-center justify-center">
                             <button
-                                class="focus:outline-none"
+                                class="focus:outline-none text-gray-500 hover:text-red-500"
                                 @click="onDelete"
                             >
                                 <svg
-                                    class="ml-3 h-4 w-4 text-gray-500"
+                                    class="ml-3 h-4 w-4"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
