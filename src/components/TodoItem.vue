@@ -62,10 +62,23 @@
                         </div>
                     </div>
                 </div>
+
+            <TodoAlertRemove v-if="removido"/>
+            <TodoAlertEdit v-if="editado"/>
+            <TodoAlertCompleted v-if="completo"/>
 </template>
 
 <script>
+import TodoAlertRemove from './TodoAlertRemove.vue'
+import TodoAlertEdit from './TodoAlertEdit.vue'
+import TodoAlertCompleted from './TodoAlertCompleted.vue'
+
 export default {
+    components: {
+        TodoAlertRemove,
+        TodoAlertEdit,
+        TodoAlertCompleted
+    },
     props: {
         todo: {
             type: Object,
@@ -75,7 +88,11 @@ export default {
     data() {
         return {
             title: this.todo.title,
-            isCompleted: this.todo.completed
+            isCompleted: this.todo.completed,
+            removido: false,
+            editado: false,
+            completoAux: false,
+            completo: false
         }
     },
     methods: {
@@ -96,15 +113,32 @@ export default {
                 }
             }
             this.$store.dispatch('updateTodo', payload)
+            if (!this.completoAux) {
+                this.editado = true
+                setTimeout(() => {
+                this.editado = false
+            }, 1200)
+            } else {
+                this.completo = true
+                setTimeout(() => {
+                this.completo = false
+            }, 1200)
+            }
         },
 
         onCheckClick() {
             this.isCompleted = !this.isCompleted
+            this.completoAux = true
             this.updateTodo()
+            this.completoAux = false
         },
 
         onDelete() {
             this.$store.dispatch('deleteTodo', this.todo.id)
+            this.removido = true
+            setTimeout(() => {
+                this.removido = false
+            }, 1200)
         }
     },
 }

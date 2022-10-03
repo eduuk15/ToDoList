@@ -11,12 +11,11 @@
             <TodoFormAdd />
             <TodoItems v-if="$store.state.todos.length" />
             <TodoEmpty v-else/>
-            <TodoAlertSuccess v-if="todosLength > todosLengthOriginal"/>
-            <TodoAlertRemove v-if="todosLength < todosLengthOriginal"/>
           </template>
 
         </div>
     </div>
+    <TodoAlertRemove v-if="removido"/>
 </template>
 
 <script>
@@ -25,8 +24,8 @@ import TodoSpinner from './components/TodoSpinner.vue'
 import TodoFormAdd from './components/TodoFormAdd.vue'
 import TodoItems from './components/TodoItems.vue'
 import TodoEmpty from './components/TodoEmpty.vue'
-import TodoAlertSuccess from './components/TodoAlertSuccess.vue'
 import TodoAlertRemove from './components/TodoAlertRemove.vue'
+
 
 export default {
   name: 'App',
@@ -35,12 +34,12 @@ export default {
     TodoFormAdd,
     TodoItems,
     TodoEmpty,
-    TodoAlertSuccess,
     TodoAlertRemove
   },
   data() {
     return {
       loading: false,
+      removido: false,
       todosLengthOriginal: '',
       todosLength: ''
     }
@@ -49,14 +48,18 @@ export default {
     this.loading = true
     this.$store.dispatch('getTodos').finally(() => {
       this.loading = false
+      this.todosLengthOriginal = this.$store.state.todos.length;
     })
-    this.todosLengthOriginal = this.$store.state.todos.length;
-    console.log('orig 1', this.todosLengthOriginal);
   },
   updated() {
     this.todosLength = this.$store.state.todos.length;
-    console.log(this.todosLength);
-    console.log('orig 2', this.todosLengthOriginal);
+    if (this.todosLength < this.todosLengthOriginal) {
+      this.removido = true
+      setTimeout(() => {
+        this.removido = false
+      }, 1200)
+    }
+    this.todosLengthOriginal = this.todosLength
   }
 }
 </script>

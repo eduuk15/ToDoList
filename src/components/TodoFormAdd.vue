@@ -16,13 +16,19 @@
                     ADICIONAR
                 </button>
     </form>
+    <TodoAlertSuccess v-if="adicionado"/>
 </template>
 
 <script>
+import TodoAlertSuccess from './TodoAlertSuccess.vue'
 export default {
+    components: {
+        TodoAlertSuccess,
+    },
     data() {
         return {
-            title: ''
+            title: '',
+            adicionado: false
         }
     },
     methods: {
@@ -35,7 +41,12 @@ export default {
                 completed: false
             }).finally(() => {
                 this.title = ''
+                this.adicionado = true
             })
+
+            setTimeout(() => {
+                this.adicionado = false
+            }, 1200)
         }
     }
 }
