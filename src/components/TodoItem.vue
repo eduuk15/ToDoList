@@ -69,13 +69,11 @@
 </template>
 
 <script>
-import TodoAlertRemove from './TodoAlertRemove.vue'
 import TodoAlertEdit from './TodoAlertEdit.vue'
 import TodoAlertCompleted from './TodoAlertCompleted.vue'
 
 export default {
     components: {
-        TodoAlertRemove,
         TodoAlertEdit,
         TodoAlertCompleted
     },
@@ -89,7 +87,6 @@ export default {
         return {
             title: this.todo.title,
             isCompleted: this.todo.completed,
-            removido: false,
             editado: false,
             completoAux: false,
             completo: false
@@ -135,10 +132,6 @@ export default {
 
         onDelete() {
             this.$store.dispatch('deleteTodo', this.todo.id)
-            this.removido = true
-            setTimeout(() => {
-                this.removido = false
-            }, 1200)
         }
     },
 }

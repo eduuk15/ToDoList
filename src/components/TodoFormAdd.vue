@@ -1,4 +1,12 @@
 <template>
+
+
+    <div class="absolute w-96">
+        <TodoAlertSuccess
+            id="alert"
+            v-if="adicionado"
+        />
+    </div>
     <form
         @submit.stop.prevent="addTodo"
         class="flex items-center px-4 bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3">
@@ -16,7 +24,6 @@
                     ADICIONAR
                 </button>
     </form>
-    <TodoAlertSuccess v-if="adicionado"/>
 </template>
 
 <script>
@@ -46,7 +53,7 @@ export default {
 
             setTimeout(() => {
                 this.adicionado = false
-            }, 1200)
+            }, 1500)
         }
     }
 }

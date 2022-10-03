@@ -1,5 +1,5 @@
 <template>
-    <div class="px-3 py-10 md:px-10">
+    <div class="h-full px-3 py-10 md:px-10">
         <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
           <div class="flex justify-center text-green-400 font-semibold text-title">
               To Do List (Lista de Tarefas)
@@ -13,9 +13,17 @@
             <TodoEmpty v-else/>
           </template>
 
+
+
         </div>
     </div>
-    <TodoAlertRemove v-if="removido"/>
+      <div class="sticky">
+        <TodoAlertRemove
+          id="alert"
+          class="float-right mr-20"
+          v-if="removido"
+        />
+      </div>
 </template>
 
 <script>
@@ -57,9 +65,26 @@ export default {
       this.removido = true
       setTimeout(() => {
         this.removido = false
-      }, 1200)
+      }, 1500)
     }
     this.todosLengthOriginal = this.todosLength
   }
 }
 </script>
+
+
+<style>
+
+   #alert {
+    -webkit-animation: smooth 1.5s ease-in;
+    -moz-animation: smooth 1.5s ease-in;
+    -o-animation: smooth 1.5s ease-in;
+    -ms-animation: smooth 1.5s ease-in;
+    animation: smooth 1.5s ease-in;
+}
+
+@-webkit-keyframes smooth {
+    0% { opacity: 1;}
+    100% { opacity: 0;}
+}
+</style>
