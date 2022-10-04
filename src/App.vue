@@ -9,6 +9,13 @@
 
           <template v-else>
             <TodoFormAdd />
+            <div class="fixed">
+              <TodoAlertRemove
+                id="alert"
+                class="w-full"
+                v-if="removido"
+              />
+            </div>
             <TodoItems v-if="$store.state.todos.length" />
             <TodoEmpty v-else/>
           </template>
@@ -17,13 +24,6 @@
 
         </div>
     </div>
-      <div class="sticky">
-        <TodoAlertRemove
-          id="alert"
-          class="float-right mr-20"
-          v-if="removido"
-        />
-      </div>
 </template>
 
 <script>
