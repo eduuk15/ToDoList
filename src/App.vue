@@ -8,14 +8,13 @@
           <TodoSpinner v-if="loading"/>
 
           <template v-else>
-            <TodoFormAdd />
-            <div class="fixed">
-              <TodoAlertRemove
-                id="alert"
-                class="w-full"
-                v-if="removido"
-              />
-            </div>
+          <TodoFormAdd />
+          <div class="fixed w-1/4 top-[90%] left-[38%]">
+            <TodoAlertRemove
+              id="alert"
+              v-if="removido"
+            />
+          </div>
             <TodoItems v-if="$store.state.todos.length" />
             <TodoEmpty v-else/>
           </template>
