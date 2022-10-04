@@ -3,10 +3,16 @@
         <div class="absolute w-full" v-if="completo" >
             <TodoAlertCompleted id="alert"/>
         </div>
+        <div class="absolute w-full" v-if="incompleto" >
+            <TodoAlertIncompleted id="alert"/>
+        </div>
         <div class="absolute w-full" v-if="editado" >
             <TodoAlertEdit id="alert" />
         </div>
-        <div class="bg-gray-300 rounded-sm">
+        <div :class="{
+            'bg-green-200 rounded-sm' : isCompleted,
+            'bg-gray-300 rounded-sm' : !isCompleted
+            }">
             <div class="flex items-center px-4 py-3 border-b border-gray-400 last:border-b-0">
                 <div class="flex items-center justify-center mr-2">
                     <button
@@ -39,7 +45,7 @@
                         type="text"
                         placeholder="Digite a sua tarefa"
                         :class="{
-                            'line-through bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3': isCompleted,
+                            'line-through bg-green-200 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3': isCompleted,
                             'bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3': !isCompleted,
                         }"
                         @keyup.enter="onTitleChange"
@@ -74,11 +80,13 @@
 <script>
 import TodoAlertEdit from './TodoAlertEdit.vue'
 import TodoAlertCompleted from './TodoAlertCompleted.vue'
+import TodoAlertIncompleted from './TodoAlertIncompleted.vue'
 
 export default {
     components: {
         TodoAlertEdit,
-        TodoAlertCompleted
+        TodoAlertCompleted,
+        TodoAlertIncompleted
     },
     props: {
         todo: {
@@ -92,7 +100,9 @@ export default {
             isCompleted: this.todo.completed,
             editado: false,
             completoAux: false,
-            completo: false
+            completo: false,
+            incompletoAux: false,
+            incompleto: false
         }
     },
     methods: {
@@ -114,23 +124,37 @@ export default {
             }
             this.$store.dispatch('updateTodo', payload)
             if (!this.completoAux) {
-                this.editado = true
-                setTimeout(() => {
-                this.editado = false
-            }, 1200)
+                if (!this.incompletoAux) {
+                    this.editado = true
+                    setTimeout(() => {
+                        this.editado = false
+                    }, 1500)
+                } else {
+                    this.incompleto = true
+                    setTimeout(() => {
+                        this.incompleto = false
+                    }, 1500)
+                }
             } else {
                 this.completo = true
                 setTimeout(() => {
-                this.completo = false
-            }, 1200)
+                    this.completo = false
+                }, 1500)
             }
         },
 
         onCheckClick() {
             this.isCompleted = !this.isCompleted
-            this.completoAux = true
+            if (!this.isCompleted) {
+                this.completoAux = false
+                this.incompletoAux = true
+            } else {
+                this.completoAux = true
+            }
             this.updateTodo()
-            this.completoAux = false
+
+            this.incompletoAux = false
+            this.completoAux = !this.completoAux
         },
 
         onDelete() {
