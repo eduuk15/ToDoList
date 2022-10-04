@@ -59,6 +59,9 @@ export default {
   updated() {
     this.todosLength = this.$store.state.todos.length;
     if (this.todosLength < this.todosLengthOriginal) {
+      if (this.removido) {
+        return
+      }
       this.removido = true
       setTimeout(() => {
         this.removido = false

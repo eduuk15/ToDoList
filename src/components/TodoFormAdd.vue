@@ -58,6 +58,9 @@ export default {
                 this.adicionado = true
             })
 
+            if (this.adicionado) {
+                return
+            }
             setTimeout(() => {
                 this.adicionado = false
             }, 1500)
