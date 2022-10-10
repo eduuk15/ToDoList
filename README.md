@@ -1,4 +1,6 @@
-# to-do-list
+# ToDoList
+
+Gerenciador de tarefas que utiliza uma API REST
 
 ## Project setup
 ```
